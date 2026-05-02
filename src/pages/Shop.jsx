@@ -295,15 +295,15 @@ const Shop = () => {
                     )}
                     
                     {product.isVIPOnly && (
-                      <div style={{position:'absolute', top:'10px', left:'10px', background:'#ff3333', color:'#fff', padding:'0.2rem 0.5rem', borderRadius:'4px', fontSize:'0.7rem', fontWeight:'bold', zIndex: 10}}>
+                      <div className="vip-badge">
                         NAJAM BLACK
                       </div>
                     )}
 
                     {product.isVIPOnly && !user?.isVIP ? (
-                      <div className="vip-lock-overlay" style={{position:'absolute', inset:0, background:'rgba(0,0,0,0.7)', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', color:'#fff', zIndex: 5}}>
-                        <span style={{fontSize:'2rem', marginBottom:'0.5rem'}}>🔒</span>
-                        <span style={{fontWeight:'bold', letterSpacing:'0.1em'}}>SOLO VIP</span>
+                      <div className="vip-lock-overlay">
+                        <span className="vip-lock-icon">🔒</span>
+                        <span className="vip-lock-text">SOLO VIP</span>
                       </div>
                     ) : (
                       <button 
