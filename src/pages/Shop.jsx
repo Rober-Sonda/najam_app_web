@@ -283,8 +283,9 @@ const Shop = () => {
               <p>No hay productos disponibles en esta categoría por el momento.</p>
             </div>
           ) : (
-            <div className="products-grid">
-              {paginatedProducts.map(product => (
+            <>
+              <div className="products-grid">
+                {paginatedProducts.map(product => (
                 <div key={product.id} className="product-card">
                   <div className="product-image-container">
                     {product.imageUrl ? (
@@ -343,6 +344,7 @@ const Shop = () => {
                 </button>
               </div>
             )}
+            </>
           )}
         </div>
       </div>
