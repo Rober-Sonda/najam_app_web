@@ -24,6 +24,20 @@ const Shop = () => {
   const [sortFilter, setSortFilter] = useState('newest');
   const [subcatFilters, setSubcatFilters] = useState([]); // array of selected subcats
 
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(window.innerWidth <= 768 ? 10 : 20);
+
+  useEffect(() => {
+    const handleResize = () => setItemsPerPage(window.innerWidth <= 768 ? 10 : 20);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchFilter, categoryFilter, brandFilter, minPrice, maxPrice, sortFilter, subcatFilters]);
+
   // Variant Modal State
   const [selectedVariantProduct, setSelectedVariantProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState('');
@@ -104,6 +118,9 @@ const Shop = () => {
     if (sortFilter === 'name_asc') return a.name.localeCompare(b.name);
     return (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0); // newest default
   });
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const paginatedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handleAddToCartClick = (product) => {
     if (!user) {
@@ -267,7 +284,7 @@ const Shop = () => {
             </div>
           ) : (
             <div className="products-grid">
-              {filteredProducts.map(product => (
+              {paginatedProducts.map(product => (
                 <div key={product.id} className="product-card">
                   <div className="product-image-container">
                     {product.imageUrl ? (
@@ -306,6 +323,26 @@ const Shop = () => {
                 </div>
               ))}
             </div>
+            
+            {totalPages > 1 && (
+              <div className="pagination" style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'1rem', marginTop:'3rem', marginBottom: '2rem'}}>
+                <button 
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
+                  disabled={currentPage === 1}
+                  style={{padding:'0.6rem 1.2rem', background:'var(--border-color)', border:'none', color:'var(--text-primary)', borderRadius:'4px', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', fontWeight: 'bold'}}
+                >
+                  Anterior
+                </button>
+                <span style={{color:'var(--text-secondary)'}}>Página {currentPage} de {totalPages}</span>
+                <button 
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} 
+                  disabled={currentPage === totalPages}
+                  style={{padding:'0.6rem 1.2rem', background:'var(--border-color)', border:'none', color:'var(--text-primary)', borderRadius:'4px', cursor: currentPage === totalPages ? 'not-allowed' : 'pointer', fontWeight: 'bold'}}
+                >
+                  Siguiente
+                </button>
+              </div>
+            )}
           )}
         </div>
       </div>

@@ -441,9 +441,6 @@ const Dashboard = () => {
     if (productSort === 'name_asc') return a.name.localeCompare(b.name);
     return (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0); // newest
   });
-
-  });
-
   return (
     <div className="dashboard-container">
       <div className="dashboard-sidebar glass-panel">
