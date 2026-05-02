@@ -50,9 +50,14 @@ const Navbar = () => {
 
           <div className="nav-actions-mobile">
             {user ? (
-              <button className="auth-btn" onClick={handleLogout}>
-                <LogOut size={18} /> Salir
-              </button>
+              <>
+                <button className="auth-btn" onClick={() => useStore.setState(state => ({ user: {...state.user, isVIP: !state.user.isVIP} }))}>
+                  {user.isVIP ? 'VIP Activo' : 'Activar VIP'}
+                </button>
+                <button className="auth-btn" onClick={handleLogout}>
+                  <LogOut size={18} /> Salir
+                </button>
+              </>
             ) : (
               <button className="auth-btn" onClick={handleLogin}>
                 <User size={18} /> Ingresar
@@ -64,7 +69,10 @@ const Navbar = () => {
         <div className="navbar-actions">
           {user ? (
              <div className="user-profile">
-               <img src={user.photoURL} alt="Profile" className="user-avatar" />
+               <img src={user.photoURL} alt="Profile" className="user-avatar" style={{border: user.isVIP ? '2px solid #ff3333' : '1px solid var(--border-color)'}} title={user.isVIP ? 'Miembro VIP' : 'Miembro Regular'} />
+               <button className="auth-btn desktop-only" onClick={() => useStore.setState(state => ({ user: {...state.user, isVIP: !state.user.isVIP} }))} title="Alternar VIP (Demo)" style={{color: user.isVIP ? '#ff3333' : 'inherit'}}>
+                 <ShieldAlert size={20} />
+               </button>
                <button className="auth-btn desktop-only" onClick={handleLogout} title="Cerrar sesión">
                  <LogOut size={20} />
                </button>

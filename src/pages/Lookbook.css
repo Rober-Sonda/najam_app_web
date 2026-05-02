@@ -1,0 +1,120 @@
+.lookbook-container {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+}
+
+.lookbook-header {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid #222;
+}
+
+.lookbook-header h1 {
+  font-size: 5rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+
+.lookbook-header p {
+  color: #888;
+  letter-spacing: 0.3em;
+  font-size: 0.9rem;
+}
+
+.editorial-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #111;
+}
+
+.editorial-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.editorial-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect */
+  filter: grayscale(20%) contrast(120%);
+  transition: transform 0.5s ease;
+}
+
+.editorial-section:hover .editorial-image {
+  transform: scale(1.02);
+}
+
+.editorial-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 500px;
+  padding: 3rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editorial-text.right {
+  right: 10%;
+}
+
+.editorial-text.left {
+  left: 10%;
+}
+
+.editorial-text h2 {
+  font-family: 'Playfair Display', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.editorial-text p {
+  color: #aaa;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.shop-the-look {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: 1px solid #fff;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.shop-the-look:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+@media (max-width: 900px) {
+  .lookbook-header h1 { font-size: 3rem; }
+  .editorial-text {
+    top: auto;
+    bottom: 5%;
+    transform: none;
+    left: 5% !important;
+    right: 5% !important;
+    width: 90%;
+    padding: 2rem;
+  }
+  .editorial-image {
+    background-attachment: scroll; /* Disable parallax on mobile for performance */
+  }
+}

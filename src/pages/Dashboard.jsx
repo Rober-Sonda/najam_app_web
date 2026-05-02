@@ -20,7 +20,8 @@ const Dashboard = () => {
     costPrice: '',
     salePrice: '',
     imageUrl: '',
-    stock: ''
+    stock: '',
+    isVIPOnly: false
   });
 
   const user = useStore(state => state.user);
@@ -49,8 +50,8 @@ const Dashboard = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
@@ -63,6 +64,7 @@ const Dashboard = () => {
         salePrice: Number(formData.salePrice),
         imageUrl: formData.imageUrl,
         stock: Number(formData.stock),
+        isVIPOnly: formData.isVIPOnly,
         updatedAt: new Date()
       };
 
@@ -77,7 +79,7 @@ const Dashboard = () => {
       
       setShowForm(false);
       setEditingId(null);
-      setFormData({ name: '', category: 'Indumentaria', costPrice: '', salePrice: '', imageUrl: '', stock: '' });
+      setFormData({ name: '', category: 'Indumentaria', costPrice: '', salePrice: '', imageUrl: '', stock: '', isVIPOnly: false });
       fetchProducts();
     } catch (error) {
       console.error("Error saving product:", error);
@@ -91,7 +93,8 @@ const Dashboard = () => {
       costPrice: product.costPrice,
       salePrice: product.salePrice,
       imageUrl: product.imageUrl || '',
-      stock: product.stock || 0
+      stock: product.stock || 0,
+      isVIPOnly: product.isVIPOnly || false
     });
     setEditingId(product.id);
     setShowForm(true);
@@ -186,6 +189,10 @@ const Dashboard = () => {
                     <label>Stock</label>
                     <input type="number" name="stock" className="input-field" value={formData.stock} onChange={handleInputChange} required />
                   </div>
+                  <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                    <input type="checkbox" name="isVIPOnly" id="isVIPOnly" checked={formData.isVIPOnly} onChange={handleInputChange} />
+                    <label htmlFor="isVIPOnly" style={{color: '#ff3333', fontWeight: 'bold'}}>Solo para VIP (Najam Black)</label>
+                  </div>
                 </div>
                 <button type="submit" className="save-btn">{editingId ? 'Actualizar Producto' : 'Crear Producto'}</button>
               </form>
@@ -209,7 +216,10 @@ const Dashboard = () => {
                   <tbody>
                     {products.map(p => (
                       <tr key={p.id}>
-                        <td>{p.name}</td>
+                        <td>
+                          {p.name} 
+                          {p.isVIPOnly && <span style={{marginLeft: '0.5rem', backgroundColor: '#ff3333', color: '#fff', padding: '0.1rem 0.4rem', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 'bold'}}>VIP</span>}
+                        </td>
                         <td>{p.category}</td>
                         <td>${p.costPrice}</td>
                         <td>${p.salePrice}</td>

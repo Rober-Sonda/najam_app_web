@@ -4,6 +4,95 @@
   gap: 4rem;
 }
 
+/* Drop Banner Section */
+.drop-banner {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  padding: 3rem 2rem;
+  text-align: center;
+  border-bottom: 4px solid #fff;
+}
+
+.drop-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.drop-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ff3333;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+}
+
+.drop-content h2 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bg-color);
+  margin: 0;
+}
+
+.countdown {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  padding: 1rem;
+  border-radius: 8px;
+  min-width: 80px;
+}
+
+.time-num {
+  font-family: 'Playfair Display', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.time-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+}
+
+.separator {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--bg-color);
+}
+
+.drop-desc {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 /* Hero Section */
 .hero-section {
   position: relative;
@@ -13,16 +102,18 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* We use a sleek dark gradient as placeholder until real images */
-  background: linear-gradient(135deg, #111 0%, #000 100%);
+  background-image: url('/hero_bg.png');
+  background-size: cover;
+  background-position: center;
   border-bottom: 1px solid var(--border-color);
+  margin-top: -4rem; /* to pull it up into the gap */
 }
 
 .hero-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at center, transparent 0%, #000 100%);
-  opacity: 0.8;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, #000 100%);
+  opacity: 0.9;
 }
 
 .hero-content {
@@ -58,6 +149,12 @@
   margin-bottom: 2.5rem;
 }
 
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
 .hero-btn {
   display: inline-flex;
   align-items: center;
@@ -77,6 +174,17 @@
   color: var(--accent-color);
   border: 1px solid var(--accent-color);
   opacity: 1;
+}
+
+.hero-btn.secondary {
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
+
+.hero-btn.secondary:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
 }
 
 /* Featured Categories */
@@ -108,6 +216,8 @@
   padding: 2rem;
   transition: transform 0.5s ease;
   background-color: #1a1a1a;
+  background-size: cover;
+  background-position: center;
 }
 
 .category-card:hover {
@@ -127,15 +237,15 @@
 .cat-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%);
   z-index: 5;
 }
 
-/* Gradients as placeholders for category images */
-.cat-apparel { background: linear-gradient(45deg, #111, #333); }
-.cat-shoes { background: linear-gradient(45deg, #222, #000); }
-.cat-accessories { background: linear-gradient(45deg, #050505, #2a2a2a); }
-.cat-fragrances { background: linear-gradient(45deg, #1a1a1a, #0d0d0d); }
+/* Images for category cards */
+.cat-apparel { background-image: url('/cat_apparel.png'); }
+.cat-shoes { background-image: url('/cat_shoes.png'); }
+.cat-accessories { background-image: url('/cat_accessories.png'); }
+.cat-fragrances { background-image: url('/cat_fragrances.png'); }
 
 /* Promo Banner */
 .promo-banner {
@@ -157,4 +267,6 @@
 @media (max-width: 768px) {
   .hero-title { font-size: 2.5rem; }
   .category-card { height: 300px; }
+  .countdown { flex-wrap: wrap; }
+  .hero-actions { flex-direction: column; }
 }

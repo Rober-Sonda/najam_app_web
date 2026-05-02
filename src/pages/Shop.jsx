@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/auth'; // Wait, it's firestore
 import { db } from '../firebase';
 import useStore from '../store/useStore';
 import { ShoppingCart } from 'lucide-react';
@@ -89,13 +88,27 @@ const Shop = () => {
                     ) : (
                       <div className="product-image-placeholder">NAJAM</div>
                     )}
-                    <button 
-                      className="add-to-cart-btn"
-                      onClick={() => handleAddToCart(product)}
-                      title={user ? "Agregar al carrito" : "Inicia sesión para comprar"}
-                    >
-                      <ShoppingCart size={20} />
-                    </button>
+                    
+                    {product.isVIPOnly && (
+                      <div style={{position:'absolute', top:'10px', left:'10px', background:'#ff3333', color:'#fff', padding:'0.2rem 0.5rem', borderRadius:'4px', fontSize:'0.7rem', fontWeight:'bold', zIndex: 10}}>
+                        NAJAM BLACK
+                      </div>
+                    )}
+
+                    {product.isVIPOnly && !user?.isVIP ? (
+                      <div className="vip-lock-overlay" style={{position:'absolute', inset:0, background:'rgba(0,0,0,0.7)', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', color:'#fff', zIndex: 5}}>
+                        <span style={{fontSize:'2rem', marginBottom:'0.5rem'}}>🔒</span>
+                        <span style={{fontWeight:'bold', letterSpacing:'0.1em'}}>SOLO VIP</span>
+                      </div>
+                    ) : (
+                      <button 
+                        className="add-to-cart-btn"
+                        onClick={() => handleAddToCart(product)}
+                        title={user ? "Agregar al carrito" : "Inicia sesión para comprar"}
+                      >
+                        <ShoppingCart size={20} />
+                      </button>
+                    )}
                   </div>
                   <div className="product-info">
                     <span className="product-category">{product.category}</span>
