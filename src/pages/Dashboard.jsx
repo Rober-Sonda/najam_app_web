@@ -442,6 +442,34 @@ const Dashboard = () => {
     return (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0); // newest
   });
 
+  const handleMigrateRopa = async () => {
+    if (!window.confirm("¿Estás seguro de migrar todos los productos de 'Ropa' a 'Indumentaria' y borrar la categoría 'Ropa'?")) return;
+    setLoading(true);
+    try {
+      // 1. Update products
+      const prodSnap = await getDocs(collection(db, "products"));
+      let count = 0;
+      for (const p of prodSnap.docs) {
+        if (p.data().category && p.data().category.toLowerCase() === 'ropa') {
+          await updateDoc(doc(db, "products", p.id), { category: 'Indumentaria' });
+          count++;
+        }
+      }
+      // 2. Delete Ropa category
+      const catSnap = await getDocs(collection(db, "categories"));
+      const ropaCat = catSnap.docs.find(d => d.data().name.toLowerCase() === 'ropa');
+      if (ropaCat) {
+        await deleteDoc(doc(db, "categories", ropaCat.id));
+      }
+      alert(`¡Migración completada! Se actualizaron ${count} productos a 'Indumentaria'.`);
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+      alert("Error en la migración.");
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-sidebar glass-panel">
@@ -480,6 +508,9 @@ const Dashboard = () => {
             <div className="section-header">
               <h2>Gestión de Catálogo</h2>
               <div style={{display:'flex', gap:'0.5rem'}}>
+                <button className="add-btn" style={{backgroundColor: '#e74c3c', color: '#fff'}} onClick={handleMigrateRopa}>
+                  Migrar "Ropa" a "Indumentaria"
+                </button>
                 <button className="add-btn" onClick={() => { setShowForm(!showForm); setEditingId(null); }}>
                   {showForm ? 'Cancelar' : <><Plus size={18}/> Nuevo Producto</>}
                 </button>
