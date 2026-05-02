@@ -88,19 +88,19 @@ const Home = () => {
       <section className="featured-categories">
         <h2 className="section-title">Elige tu Estilo</h2>
         <div className="categories-grid">
-          <Link to="/shop?category=indumentaria" className="category-card cat-apparel">
+          <Link to={`/shop?category=${encodeURIComponent('indumentaria')}`} className="category-card cat-apparel">
             <div className="cat-overlay"></div>
             <h3>Indumentaria</h3>
           </Link>
-          <Link to="/shop?category=calzado" className="category-card cat-shoes">
+          <Link to={`/shop?category=${encodeURIComponent('calzado')}`} className="category-card cat-shoes">
             <div className="cat-overlay"></div>
             <h3>Calzado</h3>
           </Link>
-          <Link to="/shop?category=accesorios" className="category-card cat-accessories">
+          <Link to={`/shop?category=${encodeURIComponent('accesorios & relojes')}`} className="category-card cat-accessories">
             <div className="cat-overlay"></div>
             <h3>Accesorios & Relojes</h3>
           </Link>
-          <Link to="/shop?category=fragancias" className="category-card cat-fragrances">
+          <Link to={`/shop?category=${encodeURIComponent('fragancias')}`} className="category-card cat-fragrances">
             <div className="cat-overlay"></div>
             <h3>Fragancias</h3>
           </Link>

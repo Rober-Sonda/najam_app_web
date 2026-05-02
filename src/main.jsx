@@ -7,6 +7,7 @@ import Shop from './pages/Shop.jsx';
 import Cart from './pages/Cart.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Lookbook from './pages/Lookbook.jsx';
+import Brand from './pages/Brand.jsx';
 import './index.css';
 
 import { onAuthStateChanged } from 'firebase/auth';
@@ -40,6 +41,7 @@ const Root = () => {
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
           <Route path="lookbook" element={<Lookbook />} />
+          <Route path="brand" element={<Brand />} />
           <Route path="cart" element={<Cart />} />
           <Route path="dashboard" element={<Dashboard />} />
         </Route>

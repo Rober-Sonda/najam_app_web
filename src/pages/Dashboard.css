@@ -204,26 +204,168 @@
   color: var(--success-color);
 }
 
+/* NEW: Orders & Ledger Styles */
+.status-select {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.status-select.pendiente { border-left: 3px solid #f39c12; }
+.status-select.en-preparación { border-left: 3px solid #3498db; }
+.status-select.entregado { border-left: 3px solid var(--success-color); }
+.status-select.cancelado { border-left: 3px solid var(--error-color); }
+
+.empty-table-msg {
+  text-align: center;
+  padding: 2rem !important;
+  color: var(--text-secondary);
+}
+
+.vip-badge {
+  margin-left: 0.5rem;
+  background-color: #ff3333;
+  color: #fff;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
 @media (max-width: 900px) {
   .dashboard-container {
     grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1.5rem;
+    padding-bottom: 90px; /* Room for bottom bar */
   }
   .dashboard-sidebar {
-    flex-direction: row;
-    flex-wrap: wrap;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 0.5rem 0;
+    display: flex;
     justify-content: center;
+  }
+  .admin-profile {
+    display: none;
   }
   .dashboard-nav {
     flex-direction: row;
     width: 100%;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem;
+    padding-bottom: 0.8rem; /* space for scrollbar */
+    /* Custom thin scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) rgba(255, 255, 255, 0.05);
+  }
+  .dashboard-nav::-webkit-scrollbar {
+    height: 4px;
+  }
+  .dashboard-nav::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+  .dashboard-nav::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
   }
   .nav-tab {
-    padding: 0.5rem;
+    flex-direction: column;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.75rem;
+    justify-content: center;
+    border-radius: 8px;
+    gap: 0.3rem;
+    min-width: 75px;
+    flex-shrink: 0;
+    text-align: center;
   }
   .nav-tab.active {
-    border-left: none;
-    border-bottom: 2px solid var(--accent-color);
-    border-radius: 0;
+    border: none;
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .section-header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  .section-header h2 {
+    text-align: center;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-form {
+    padding: 1rem;
+  }
+  
+  /* Responsive Table as Cards */
+  .data-table thead {
+    display: none; /* Hide table headers */
+  }
+  
+  .data-table, .data-table tbody, .data-table tr, .data-table td {
+    display: block;
+    width: 100%;
+  }
+  
+  .data-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  
+  .data-table td {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    gap: 1rem;
+  }
+  
+  .data-table td:last-child {
+    border-bottom: none;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+  
+  /* Add labels before the data using pseudo-elements */
+  .data-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .data-table td span, 
+  .data-table td text {
+    text-align: right;
+    word-break: break-word;
   }
 }

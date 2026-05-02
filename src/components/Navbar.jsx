@@ -41,6 +41,8 @@ const Navbar = () => {
         <nav className={`navbar-links ${isOpen ? 'open' : ''}`}>
           <Link to="/" onClick={() => setIsOpen(false)}>Inicio</Link>
           <Link to="/shop" onClick={() => setIsOpen(false)}>Catálogo</Link>
+          <Link to="/lookbook" onClick={() => setIsOpen(false)}>Lookbook</Link>
+          <Link to="/brand" onClick={() => setIsOpen(false)}>La Marca</Link>
           
           {user && (
             <Link to="/dashboard" onClick={() => setIsOpen(false)} className="dashboard-link">

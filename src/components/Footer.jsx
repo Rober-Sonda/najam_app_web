@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import './Footer.css';
 
@@ -14,10 +15,10 @@ const Footer = () => {
         <div className="footer-links">
           <h3>Categorías</h3>
           <ul>
-            <li>Indumentaria</li>
-            <li>Calzado</li>
-            <li>Accesorios</li>
-            <li>Fragancias</li>
+            <li><Link to="/shop?category=indumentaria">Indumentaria</Link></li>
+            <li><Link to="/shop?category=calzado">Calzado</Link></li>
+            <li><Link to="/shop?category=accesorios">Accesorios</Link></li>
+            <li><Link to="/shop?category=fragancias">Fragancias</Link></li>
           </ul>
         </div>
 

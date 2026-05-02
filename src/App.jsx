@@ -24,7 +24,7 @@ function App() {
           <Outlet />
         </motion.main>
       </AnimatePresence>
-      <Footer />
+      {location.pathname !== '/dashboard' && <Footer />}
     </div>
   );
 }

@@ -14,11 +14,16 @@
   margin-bottom: 3rem;
 }
 
+.footer-brand {
+  max-width: 300px;
+}
+
 .footer-logo {
-  font-family: 'Playfair Display', sans-serif;
+  font-family: 'Syncopate', sans-serif;
   font-size: 2rem;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .footer-tagline {

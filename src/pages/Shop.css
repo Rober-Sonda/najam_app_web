@@ -173,9 +173,27 @@
 
 @media (max-width: 900px) {
   .shop-layout {
-    grid-template-columns: 1fr;
+    display: block;
   }
-  .shop-sidebar {
-    position: static;
+  .mobile-hide {
+    display: none;
+  }
+  .mobile-show {
+    display: block;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: var(--bg-color);
+    overflow-y: auto;
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 901px) {
+  .filter-toggle-btn {
+    display: none !important;
   }
 }

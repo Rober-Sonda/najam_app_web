@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap');
+
 :root {
   --bg-color: #050505; /* Deep black */
   --text-primary: #ffffff;
@@ -101,6 +103,11 @@ button:disabled {
 .input-field:focus {
   outline: none;
   border-color: var(--accent-color);
+}
+
+.input-field option {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
 }
 
 .app-container {

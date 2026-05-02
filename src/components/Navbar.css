@@ -19,10 +19,17 @@
 
 .navbar-logo {
   font-family: 'Playfair Display', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo-text {
+  font-family: 'Syncopate', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: 0.15em;
 }
 
 .navbar-links {

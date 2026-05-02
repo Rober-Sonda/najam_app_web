@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import useStore from '../store/useStore';
 import { Trash2, Plus, Minus, CreditCard } from 'lucide-react';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { useNavigate } from 'react-router-dom';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import './Cart.css';
 
 // initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY);
@@ -18,16 +21,32 @@ const Cart = () => {
 
   const total = cart.reduce((acc, item) => acc + (item.salePrice * item.quantity), 0);
 
+  const navigate = useNavigate();
+
   const handleCheckout = async () => {
-    // In a real app, this calls a Firebase Function to create a Mercado Pago preference.
-    // For now, we simulate loading state since we don't have the backend function yet.
+    if (!user) return;
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      alert("La integración con Mercado Pago requiere una Cloud Function para generar el Preference ID. Las credenciales de MP deben configurarse primero.");
+      // Temporary order creation until Mercado Pago is fully integrated
+      const orderData = {
+        userId: user.uid,
+        customerName: user.displayName || user.email,
+        customerEmail: user.email,
+        items: cart,
+        totalAmount: total,
+        status: 'Pendiente', // Pendiente, En Preparación, Entregado
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+
+      await addDoc(collection(db, "orders"), orderData);
+      
+      alert("¡Tu pedido ha sido recibido con éxito! Nos pondremos en contacto contigo para coordinar el pago y la entrega.");
+      clearCart();
+      navigate('/shop');
     } catch (error) {
-      console.error(error);
+      console.error("Error creating order:", error);
+      alert("Hubo un error al procesar tu pedido. Por favor intenta de nuevo.");
     } finally {
       setLoading(false);
     }
@@ -68,7 +87,9 @@ const Cart = () => {
               </div>
               <div className="item-details">
                 <h3>{item.name}</h3>
-                <p className="item-size">Talle: {item.size}</p>
+                {item.size && item.size !== 'Único' && (
+                  <p className="item-size">Opción: {item.size}</p>
+                )}
                 <p className="item-price">${item.salePrice}</p>
               </div>
               <div className="item-actions">
