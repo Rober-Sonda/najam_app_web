@@ -24,6 +24,20 @@ const Dashboard = () => {
   const [productSort, setProductSort] = useState('newest');
   const [productSubcatFilter, setProductSubcatFilter] = useState('');
   
+  // Dashboard Pagination
+  const [productPage, setProductPage] = useState(1);
+  const [itemsPerProductPage, setItemsPerProductPage] = useState(window.innerWidth <= 768 ? 10 : 20);
+
+  useEffect(() => {
+    const handleResize = () => setItemsPerProductPage(window.innerWidth <= 768 ? 10 : 20);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    setProductPage(1);
+  }, [productSearch, productCategoryFilter, productBrandFilter, productSubcatFilter, productSort]);
+  
   const [formData, setFormData] = useState({
     name: '',
     category: 'Indumentaria',
@@ -441,6 +455,9 @@ const Dashboard = () => {
     if (productSort === 'name_asc') return a.name.localeCompare(b.name);
     return (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0); // newest
   });
+
+  const productTotalPages = Math.ceil(filteredProducts.length / itemsPerProductPage);
+  const paginatedDashboardProducts = filteredProducts.slice((productPage - 1) * itemsPerProductPage, productPage * itemsPerProductPage);
   return (
     <div className="dashboard-container">
       <div className="dashboard-sidebar glass-panel">
@@ -644,7 +661,7 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredProducts.map(p => (
+                    {paginatedDashboardProducts.map(p => (
                       <tr key={p.id}>
                         <td data-label="Producto">
                           {p.brand && <small style={{display:'block', color:'#888'}}>{p.brand}</small>}
@@ -666,6 +683,24 @@ const Dashboard = () => {
                     )}
                   </tbody>
                 </table>
+                
+                <div className="pagination">
+                  <button 
+                    className="pagination-btn"
+                    onClick={() => setProductPage(p => Math.max(1, p - 1))} 
+                    disabled={productPage === 1}
+                  >
+                    Anterior
+                  </button>
+                  <span className="pagination-info">Página {productPage} de {Math.max(1, productTotalPages)}</span>
+                  <button 
+                    className="pagination-btn"
+                    onClick={() => setProductPage(p => Math.min(productTotalPages, p + 1))} 
+                    disabled={productPage >= productTotalPages}
+                  >
+                    Siguiente
+                  </button>
+                </div>
               </div>
             )}
           </div>

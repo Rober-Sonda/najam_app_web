@@ -325,19 +325,19 @@ const Shop = () => {
               ))}
             </div>
             
-            <div className="pagination" style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'1rem', marginTop:'3rem', marginBottom: '2rem'}}>
+            <div className="pagination">
               <button 
+                className="pagination-btn"
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))} 
                 disabled={currentPage === 1}
-                style={{padding:'0.6rem 1.2rem', background:'var(--border-color)', border:'none', color:'var(--text-primary)', borderRadius:'4px', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', fontWeight: 'bold'}}
               >
                 Anterior
               </button>
-              <span style={{color:'var(--text-secondary)'}}>Página {currentPage} de {Math.max(1, totalPages)}</span>
+              <span className="pagination-info">Página {currentPage} de {Math.max(1, totalPages)}</span>
               <button 
+                className="pagination-btn"
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} 
                 disabled={currentPage >= totalPages}
-                style={{padding:'0.6rem 1.2rem', background:'var(--border-color)', border:'none', color:'var(--text-primary)', borderRadius:'4px', cursor: currentPage >= totalPages ? 'not-allowed' : 'pointer', fontWeight: 'bold'}}
               >
                 Siguiente
               </button>
